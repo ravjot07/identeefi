@@ -1,5 +1,5 @@
 import axios from 'axios';
 
 export default axios.create({
-    baseURL: 'http://localhost:5000'
+    baseURL: 'https://identeefi-server-mo4kkv6lc-ayush-rakeshs-projects.vercel.app/'
 });
