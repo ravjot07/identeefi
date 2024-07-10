@@ -19,18 +19,18 @@
   "version"; 2,
   "builds"; [
     {
-      "src": "*.js",
+      "src": "postgres.js",
       "use": "@vercel/node"
     }
   ],
   "routes"; [
     {
       "src": "/(.*)",
-      "dest": "/"
+      "dest": "postgres.js"
     }
   ],
   "env"; {
-    // "PG_HOST"; "@pg_host",
+    "PG_HOST"; "@pg_host",
     "PG_PORT"; "@pg_port",
     "PG_USER"; "@pg_user",
     "PG_PASSWORD"; "@pg_password",
