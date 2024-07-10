@@ -35,7 +35,6 @@
     "PG_USER"; "@pg_user",
     "PG_PASSWORD"; "@pg_password",
     "PG_DATABASE"; "@pg_database",
-    "PORT"; "@port",
-   "POSTGRES_URL"; "@database_url" 
+    "PORT"; "@port"
   }
 }
