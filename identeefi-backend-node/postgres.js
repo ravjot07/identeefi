@@ -268,7 +268,7 @@ function changePassword(username, password) {
       if (err) {
         console.log(err.message);
       } else {
-        console.log("Data update successful");
+        console.log("Data update successful!");
       }
     }
   );
