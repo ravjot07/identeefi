@@ -17,6 +17,7 @@ import Product from './components/pages/Product';
 import AuthenticProduct from './components/pages/AuthenticProduct';
 import FakeProduct from './components/pages/FakeProduct';
 import UpdateProductDetails from './components/pages/UpdateProductDetails';
+import OrderPicking from './components/pages/OrderPicking';
 
 function App() {
 
@@ -31,6 +32,7 @@ function App() {
         <Route exact path='/product' element={< Product />}></Route>
         <Route exact path='/authentic-product' element={< AuthenticProduct />}></Route>
         <Route exact path='/fake-product' element={< FakeProduct />}></Route>
+        <Route exact path='/order-picking' element={< OrderPicking />}></Route>
 
         {/* private routes */}
         <Route element={<RequireAuth allowedRoles={["admin"]} />}>
