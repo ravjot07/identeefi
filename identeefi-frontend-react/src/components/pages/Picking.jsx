@@ -1,8 +1,12 @@
 import React from 'react'
+import TruckAnimation from './truck'
 
 const Picking = () => {
   return (
-    <div>Picking</div>
+    <div>
+      <h1>Truck Animation</h1>
+      <TruckAnimation />
+    </div>
   )
 }
 
