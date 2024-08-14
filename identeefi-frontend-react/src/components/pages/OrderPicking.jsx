@@ -1,77 +1,121 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import '../../css/OrderPicking.css';
+import { Button, TextField, Typography, Paper, Box, Container, styled } from '@mui/material';
+import { useNavigate } from 'react-router-dom';  // Import useNavigate
+
+const CustomContainer = styled(Container)(({ theme }) => ({
+  height: '100vh',
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center'
+}));
+
+const FormPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  display: 'flex',
+  flexDirection: 'column',
+  borderRadius: '15px',
+  maxWidth: '400px',
+  boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+}));
+
+const StyledButton = styled(Button)({
+  marginTop: '20px',
+  background: '#17275F',
+  color: 'white',
+  '&:hover': {
+    background: '#143b6f'
+  }
+});
+
 const OrderPicking = () => {
-    const [items, setItems] = useState('');
-    const [timeMatrix, setTimeMatrix] = useState('');
-    const [vehicles, setVehicles] = useState('');
-    const [limit, setLimit] = useState('');
-    const [result, setResult] = useState(null);
+  const [items, setItems] = useState('');
+  const [timeMatrix, setTimeMatrix] = useState('');
+  const [vehicles, setVehicles] = useState('');
+  const [limit, setLimit] = useState('');
+  const [result, setResult] = useState(null);
+  const navigate = useNavigate();  // Initialize the navigate function
 
-    const handleItemsChange = (e) => {
-        setItems(e.target.value);
+  const handleItemsChange = (e) => setItems(e.target.value);
+  const handleTimeMatrixChange = (e) => setTimeMatrix(e.target.value);
+  const handleVehiclesChange = (e) => setVehicles(e.target.value);
+  const handleLimitChange = (e) => setLimit(e.target.value);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const data = {
+      items: JSON.parse(items),
+      time_matrix: JSON.parse(timeMatrix),
+      vehicles: parseInt(vehicles),
+      limit: parseInt(limit)
     };
 
-    const handleTimeMatrixChange = (e) => {
-        setTimeMatrix(e.target.value);
-    };
+    try {
+      const response = await axios.post('http://localhost:5000/picking', data);
+      setResult(response.data);
+      navigate('/picking');  // Navigate to the success page or another route
+    } catch (error) {
+      console.error('Error executing order picking:', error);
+      setResult(null);
+    }
+  };
 
-    const handleVehiclesChange = (e) => {
-        setVehicles(e.target.value);
-    };
-
-    const handleLimitChange = (e) => {
-        setLimit(e.target.value);
-    };
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const data = {
-            items: JSON.parse(items),
-            time_matrix: JSON.parse(timeMatrix),
-            vehicles: parseInt(vehicles),
-            limit: parseInt(limit)
-        };
-
-        try {
-            const response = await axios.post('http://localhost:5000/picking', data);
-            setResult(response.data);
-        } catch (error) {
-            console.error('Error executing order picking:', error);
-            setResult(null);
-        }
-    };
-
-    return (
-        <div>
-            <h2>Order Picking</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Items (JSON Array):</label>
-                    <textarea value={items} onChange={handleItemsChange} rows="4" cols="50" />
-                </div>
-                <div>
-                    <label>Time Matrix (JSON Array of Arrays):</label>
-                    <textarea value={timeMatrix} onChange={handleTimeMatrixChange} rows="4" cols="50" />
-                </div>
-                <div>
-                    <label>Vehicles:</label>
-                    <input type="number" value={vehicles} onChange={handleVehiclesChange} />
-                </div>
-                <div>
-                    <label>Limit:</label>
-                    <input type="number" value={limit} onChange={handleLimitChange} />
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            {result && (
-                <div>
-                    <h3>Result:</h3>
-                    <pre>{JSON.stringify(result, null, 2)}</pre>
-                </div>
-            )}
-        </div>
-    );
+  return (
+    <CustomContainer>
+      <FormPaper>
+        <Typography variant="h4" color="textPrimary" gutterBottom>
+          Order Picking
+        </Typography>
+        <TextField
+          label="Items (JSON Array)"
+          multiline
+          rows={4}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={items}
+          onChange={handleItemsChange}
+        />
+        <TextField
+          label="Time Matrix (JSON Array of Arrays)"
+          multiline
+          rows={4}
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={timeMatrix}
+          onChange={handleTimeMatrixChange}
+        />
+        <TextField
+          label="Vehicles"
+          type="number"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={vehicles}
+          onChange={handleVehiclesChange}
+        />
+        <TextField
+          label="Limit"
+          type="number"
+          variant="outlined"
+          fullWidth
+          margin="normal"
+          value={limit}
+          onChange={handleLimitChange}
+        />
+        <StyledButton onClick={handleSubmit}>
+          Submit
+        </StyledButton>
+        {result && (
+          <Box mt={2}>
+            <Typography variant="h6">Result:</Typography>
+            <pre>{JSON.stringify(result, null, 2)}</pre>
+          </Box>
+        )}
+      </FormPaper>
+    </CustomContainer>
+  );
 };
 
 export default OrderPicking;
