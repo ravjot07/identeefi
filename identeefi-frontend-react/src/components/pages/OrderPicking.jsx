@@ -76,16 +76,7 @@ const OrderPicking = () => {
           value={items}
           onChange={handleItemsChange}
         />
-        <TextField
-          label="Time Matrix (JSON Array of Arrays)"
-          multiline
-          rows={4}
-          variant="outlined"
-          fullWidth
-          margin="normal"
-          value={timeMatrix}
-          onChange={handleTimeMatrixChange}
-        />
+        
         <TextField
           label="Vehicles"
           type="number"
