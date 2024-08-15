@@ -1,19 +1,46 @@
 import React from 'react';
-import '../../css/TruckAnimation.css'; // Import the CSS file for the animation
-import truckImg from '../../img/truck.png'; // Importing the truck image
-import startImg from '../../img/ware.png'; // Importing the start image
-import stopImg from '../../img/ware.png';   // Importing the stop image
-import endImg from '../../img/ware.png';     // Importing the end image
+import '../../css/TruckAnimation.css'; 
+import truckImg from '../../img/truck.png'; 
+import startImg from '../../img/ware.png'; 
+import stopImg from '../../img/ware.png';   
+import endImg from '../../img/ware.png';     
+import placeholderImg from '../../img/ware.png';
 
 const TruckAnimation = () => {
   return (
     <div className="map-container">
+      {/* Truck */}
       <img src={truckImg} alt="Truck" className="truck" />
-      <img src={startImg} alt="Start" className="start" />
-      <img src={stopImg} alt="Stop 1" className="stop stop-1" />
-      <img src={stopImg} alt="Stop 2" className="stop stop-2" />
-      <img src={stopImg} alt="Stop 3" className="stop stop-3" />
-      <img src={endImg} alt="End" className="end" />
+
+      {/* Start node */}
+      <div className="node start-node">
+        <img src={startImg} alt="Start" className="start" onError={(e) => e.target.src = placeholderImg} />
+        <div className="label">Start</div>
+      </div>
+
+      {/* Stop 1 */}
+      <div className="node stop-1-node">
+        <img src={stopImg} alt="Stop 1" className="stop" onError={(e) => e.target.src = placeholderImg} />
+        <div className="label">Stop 1</div>
+      </div>
+
+      {/* Stop 2 */}
+      <div className="node stop-2-node">
+        <img src={stopImg} alt="Stop 2" className="stop" onError={(e) => e.target.src = placeholderImg} />
+        <div className="label">Stop 2</div>
+      </div>
+
+      {/* Stop 3 */}
+      <div className="node stop-3-node">
+        <img src={stopImg} alt="Stop 3" className="stop" onError={(e) => e.target.src = placeholderImg} />
+        <div className="label">Stop 3</div>
+      </div>
+
+      {/* End node */}
+      <div className="node end-node">
+        <img src={endImg} alt="End" className="end" onError={(e) => e.target.src = placeholderImg} />
+        <div className="label">End</div>
+      </div>
     </div>
   );
 };
