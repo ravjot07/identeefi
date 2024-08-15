@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, TextField, Typography, Paper, Box, Container, styled } from '@mui/material';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';  
+import OrderPickingForm from './OrderPickingForm';
+
 
 const CustomContainer = styled(Container)(({ theme }) => ({
   height: '100vh',
@@ -15,7 +17,7 @@ const FormPaper = styled(Paper)(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
   borderRadius: '15px',
-  maxWidth: '400px',
+  maxWidth: '600px',
   boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
 }));
 
@@ -53,7 +55,7 @@ const OrderPicking = () => {
     try {
       const response = await axios.post('http://localhost:5000/picking', data);
       setResult(response.data);
-      navigate('/picking');  // Navigate to the success page or another route
+      navigate('/picking');  
     } catch (error) {
       console.error('Error executing order picking:', error);
       setResult(null);
@@ -62,11 +64,13 @@ const OrderPicking = () => {
 
   return (
     <CustomContainer>
+      
       <FormPaper>
         <Typography variant="h4" color="textPrimary" gutterBottom>
           Order Picking
         </Typography>
-        <TextField
+        <OrderPickingForm />
+        {/* <TextField
           label="Items (JSON Array)"
           multiline
           rows={4}
@@ -75,7 +79,7 @@ const OrderPicking = () => {
           margin="normal"
           value={items}
           onChange={handleItemsChange}
-        />
+        /> */}
         
         <TextField
           label="Vehicles"
